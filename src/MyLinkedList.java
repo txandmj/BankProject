@@ -7,13 +7,16 @@ public class MyLinkedList {
     public ListNode getHead() {
         return head;
     }
-    public User get(int index) {
+    public User get(int userId) {
         ListNode dummyHead = new ListNode(new User(), head);
         ListNode cur = dummyHead;
-        for(int i = 0; i <= index; i++) {
+        while(cur != null) {
+            if(cur.getUser().getId() == userId) {
+                return cur.getUser();
+            }
             cur = cur.getNext();
         }
-        return cur.getUser();
+        return null;
     }
 
     public void AddAtHead(User user) {
@@ -45,13 +48,19 @@ public class MyLinkedList {
         size++;
     }
 
-    public void deleteAtIndex(int index) {
+    public boolean deleteId(int userId) {
         ListNode dummyHead = new ListNode(new User(), head);
         ListNode cur = dummyHead;
-        for(int i = 0; i < index; i++) {
-            cur = cur.getNext();
+        while(cur != null) {
+            int nextId = cur.getNext().getUser().getId();
+            if(nextId == userId) {
+                cur.setNext(cur.getNext().getNext());
+                return true;
+            } else {
+                cur = cur.getNext();
+            }
         }
-        cur.setNext(cur.getNext().getNext());
         size--;
+        return false;
     }
 }

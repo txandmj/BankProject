@@ -61,5 +61,12 @@ public class User {
                 ", amount=" + amount +
                 '}';
     }
+    public boolean equals(User other) {
+        if(name.equals(other.name) && address.equals(other.address)
+                && SSN.equals(other.SSN) && amount == other.amount) {
+            return true;
+        }
+        return false;
+    }
 }
 

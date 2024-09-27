@@ -6,10 +6,6 @@ public class ListNode {
         this.user = user;
         this.next = null;
     }
-//    public ListNode(ListNode next) {
-//        this.user = null;
-//        this.next = next;
-//    }
     public ListNode(User user, ListNode next) {
         this.user = user;
         this.next = next;
