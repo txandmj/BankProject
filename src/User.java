@@ -1,10 +1,11 @@
-public class Users {
+public class User {
     private int id;
     private String name;
     private String address;
-    private int SSN;
+    private String SSN;
     private double amount;
-    public Users(int id, String name, String address, int SSN, double amount) {
+    public User() {}
+    public User(int id, String name, String address, String SSN, double amount) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -34,11 +35,11 @@ public class Users {
         this.address = address;
     }
 
-    public int getSocialSecurityNum() {
+    public String getSocialSecurityNum() {
         return SSN;
     }
 
-    public void setSocialSecurityNum(int socialSecurityNum) {
+    public void setSocialSecurityNum(String socialSecurityNum) {
         this.SSN = socialSecurityNum;
     }
 
