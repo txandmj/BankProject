@@ -3,14 +3,14 @@ public class User {
     private String name;
     private String address;
     private String SSN;
-    private double amount;
+    private double balance;
     public User() {}
-    public User(int id, String name, String address, String SSN, double amount) {
+    public User(int id, String name, String address, String SSN, double balance) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.SSN = SSN;
-        this.amount = amount;
+        this.balance = balance;
     }
     public int getId() {
         return id;
@@ -43,12 +43,12 @@ public class User {
         this.SSN = socialSecurityNum;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     @Override
@@ -58,12 +58,12 @@ public class User {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", SSN=" + SSN +
-                ", amount=" + amount +
+                ", amount=" + balance +
                 '}';
     }
     public boolean equals(User other) {
         if(name.equals(other.name) && address.equals(other.address)
-                && SSN.equals(other.SSN) && amount == other.amount) {
+                && SSN.equals(other.SSN) && balance == other.balance) {
             return true;
         }
         return false;

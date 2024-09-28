@@ -18,25 +18,24 @@ public class MyLinkedList {
         }
         return null;
     }
-
-    public void AddAtHead(User user) {
+    public int getInsertSite(int userId) {
         ListNode dummyHead = new ListNode(new User(), head);
-        ListNode newUser = new ListNode(user);
-        newUser.setNext(dummyHead.getNext());
-        dummyHead.setNext(newUser);
-        size++;
-    }
-    public void AddAtTail(User user) {
-        ListNode dummyHead = new ListNode(new User(), head);
-        ListNode newUser = new ListNode(user);
         ListNode cur = dummyHead;
-        while(cur.getNext() != null) {
+        int insertSite = 0;
+        while(cur != null && cur.getUser().getId() < userId) {
             cur = cur.getNext();
+            insertSite++;
         }
-        cur.setNext(newUser);
-        size++;
+        return insertSite;
     }
+
     public void AddAtIndex(User user, int index) {
+        //this linkedlist is empty
+        if(head == null) {
+            head = new ListNode(user);
+            size++;
+            return;
+        }
         ListNode dummyHead = new ListNode(new User(), head);
         ListNode newUser = new ListNode(user);
         ListNode cur = dummyHead;
