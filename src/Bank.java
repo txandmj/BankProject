@@ -22,11 +22,11 @@ public class Bank {
         }
         return availableIdList.removeHead();
     }
-    public void AddNewUser(String name, String address, String ssn, double balance) {
+    public void addNewUser(String name, String address, String ssn, double balance) {
         int newId = getNewId();
         User newUser = new User(newId, name, address, ssn, balance);
         int insertSite = usersList.getInsertSite(newId);
-        usersList.AddAtIndex(newUser, insertSite);
+        usersList.addAtIndex(newUser, insertSite);
         System.out.println("User added: " + newUser);
     }
     public void deleteUser(int userId) {
@@ -34,9 +34,11 @@ public class Bank {
             System.out.println("Invalid user Id");
             return;
         }
+        User deleteUser = usersList.get(userId);
         if(usersList.deleteId(userId)) {
             availableIdList.addId(userId); //add id into availableIdList
-            System.out.println("User " + userId + " deleted");
+            //System.out.println("User " + userId + " deleted");
+            System.out.println(deleteUser + " deleted");
         } else {
             System.out.println("User " + userId + " not found");
         }
@@ -58,7 +60,11 @@ public class Bank {
         int listSize = usersList.getSize();
         int idMid = listSize / 2;
         if(listSize % 2 == 0) {
-            res = (usersList.get(idMid).getId() + usersList.get(idMid + 1).getId()) >> 1;
+        float id1 = (float) usersList.get(idMid).getId();
+        float id2 = (float) usersList.get(idMid + 1).getId();
+        res = (id1 + id2) / 2;
+        //wrong: store the result from int to float type
+        //res = (usersList.get(idMid).getId() + usersList.get(idMid + 1).getId()) / 2;
         } else {
             res = usersList.get(idMid).getId();
         }
@@ -70,14 +76,16 @@ public class Bank {
         User user2 = usersList.get(id2);
         if(user1.equals(user2)) {
             double total = user1.getBalance() + user2.getBalance();
-            if(id1 > id2) {
+            if(id1 < id2) {
                 user1.setBalance(total);
                 deleteUser(id2);
                 System.out.println("Account " + id1 + " and " + id2 + " merged into " + id1 + ". The balance is " + total);
+                return;
             } else {
                 user2.setBalance(total);
                 deleteUser(id1);
                 System.out.println("Account " + id1 + " and " + id2 + " merged into " + id2 + ". The balance is " + total);
+                return;
             }
         }
         System.out.println("Cannot merge accounts: Invalid details or mismatch.");
@@ -87,6 +95,15 @@ public class Bank {
         while(cur != null) {
             int id = cur.getUser().getId();
             User user = usersList.get(id);
+
+            if(user == null) {
+                int insertSite = usersList.getInsertSite(id);
+                usersList.addAtIndex(cur.getUser(), insertSite);
+            } else {
+                addNewUser(cur.getUser().getName(), cur.getUser().getAddress(),
+                        cur.getUser().getSocialSecurityNum(), cur.getUser().getBalance());
+            }
+            cur = cur.getNext();
         }
     }
 }

@@ -8,8 +8,7 @@ public class MyLinkedList {
         return head;
     }
     public User get(int userId) {
-        ListNode dummyHead = new ListNode(new User(), head);
-        ListNode cur = dummyHead;
+        ListNode cur = head;
         while(cur != null) {
             if(cur.getUser().getId() == userId) {
                 return cur.getUser();
@@ -19,9 +18,11 @@ public class MyLinkedList {
         return null;
     }
     public int getInsertSite(int userId) {
-        ListNode dummyHead = new ListNode(new User(), head);
-        ListNode cur = dummyHead;
+        ListNode cur = head;
         int insertSite = 0;
+        if(head == null) {
+            return insertSite;
+        }
         while(cur != null && cur.getUser().getId() < userId) {
             cur = cur.getNext();
             insertSite++;
@@ -29,7 +30,7 @@ public class MyLinkedList {
         return insertSite;
     }
 
-    public void AddAtIndex(User user, int index) {
+    public void addAtIndex(User user, int index) {
         //this linkedlist is empty
         if(head == null) {
             head = new ListNode(user);
@@ -50,16 +51,16 @@ public class MyLinkedList {
     public boolean deleteId(int userId) {
         ListNode dummyHead = new ListNode(new User(), head);
         ListNode cur = dummyHead;
-        while(cur != null) {
+        while(cur != null && cur.getNext() != null) {
             int nextId = cur.getNext().getUser().getId();
             if(nextId == userId) {
                 cur.setNext(cur.getNext().getNext());
+                size--;
                 return true;
             } else {
                 cur = cur.getNext();
             }
         }
-        size--;
         return false;
     }
 }

@@ -10,9 +10,13 @@ public class AvailableIdList {
     }
 
     public void addId(int userId) {
-        IdNode dummyHead = new IdNode(-1, head);
-        IdNode cur = dummyHead;
         IdNode newUser = new IdNode(userId);
+        if(head == null) {
+            head = newUser;
+            size++;
+            return;
+        }
+        IdNode cur = head;
         while(cur.next != null) {
             cur = cur.next;
         }
