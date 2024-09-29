@@ -1,9 +1,6 @@
-import java.util.LinkedList;
-import java.util.List;
-
 public class Bank {
     public String bankName;
-    private MyLinkedList usersList;//store users
+    private final MyLinkedList usersList;//store users
     public int idCounter = 0; //self-increment
     public AvailableIdList availableIdList;
 
@@ -24,23 +21,27 @@ public class Bank {
     }
     public void addNewUser(String name, String address, String ssn, double balance) {
         int newId = getNewId();
-        User newUser = new User(newId, name, address, ssn, balance);
-        int insertSite = usersList.getInsertSite(newId);
-        usersList.addAtIndex(newUser, insertSite);
-        System.out.println("User added: " + newUser);
+        addNewUserWithId(newId, name, address, ssn, balance);
     }
+
+    public void addNewUserWithId(int id, String name, String address, String ssn, double balance) {
+        User newUser = new User(id, name, address, ssn, balance);
+        usersList.addNode(newUser);
+        System.out.println(STR."User added: \{newUser}");
+    }
+
     public void deleteUser(int userId) {
         if(userId < 0 || userId > idCounter) {
             System.out.println("Invalid user Id");
             return;
         }
         User deleteUser = usersList.get(userId);
-        if(usersList.deleteId(userId)) {
+        if(usersList.deleteNode(userId)) {
             availableIdList.addId(userId); //add id into availableIdList
             //System.out.println("User " + userId + " deleted");
-            System.out.println(deleteUser + " deleted");
+            System.out.println(STR."\{deleteUser} deleted");
         } else {
-            System.out.println("User " + userId + " not found");
+            System.out.println(STR."User \{userId} not found");
         }
 
     }
@@ -50,13 +51,13 @@ public class Bank {
         if(payer != null && payee != null && payer.getBalance() >= amount) {
             payer.setBalance(payer.getBalance() - amount);
             payee.setBalance(payee.getBalance() + amount);
-            System.out.println("Transfer successful: " + amount + " from " + payerId + " to " + payeeId);
+            System.out.println(STR."Transfer successful: \{amount} from \{payerId} to \{payeeId}");
         } else {
             System.out.println("Transfer failed: Insufficient funds or user not fund");
         }
     }
     public float getMedianId() {
-        float res = 0;
+        float res;
         int listSize = usersList.getSize();
         int idMid = listSize / 2;
         if(listSize % 2 == 0) {
@@ -79,14 +80,12 @@ public class Bank {
             if(id1 < id2) {
                 user1.setBalance(total);
                 deleteUser(id2);
-                System.out.println("Account " + id1 + " and " + id2 + " merged into " + id1 + ". The balance is " + total);
-                return;
             } else {
                 user2.setBalance(total);
                 deleteUser(id1);
-                System.out.println("Account " + id1 + " and " + id2 + " merged into " + id2 + ". The balance is " + total);
-                return;
             }
+            System.out.println(STR."Account \{id1} and \{id2} merged into \{id1}. The balance is \{total}");
+            return;
         }
         System.out.println("Cannot merge accounts: Invalid details or mismatch.");
     }
@@ -96,9 +95,9 @@ public class Bank {
             int id = cur.getUser().getId();
             User user = usersList.get(id);
 
-            if(user == null) {
-                int insertSite = usersList.getInsertSite(id);
-                usersList.addAtIndex(cur.getUser(), insertSite);
+            if(user == null) { //no need new id
+                addNewUserWithId(cur.getUser().getId(),cur.getUser().getName(), cur.getUser().getAddress(),
+                        cur.getUser().getSocialSecurityNum(), cur.getUser().getBalance());
             } else {
                 addNewUser(cur.getUser().getName(), cur.getUser().getAddress(),
                         cur.getUser().getSocialSecurityNum(), cur.getUser().getBalance());

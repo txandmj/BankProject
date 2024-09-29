@@ -1,33 +1,30 @@
+/*
+The linked list to store available IDs;
+id added to the tail of avail
+ */
 public class AvailableIdList {
     IdNode head = null;
+    IdNode tail = null; //point the new userId
     int size = 0;
 
     public int removeHead() {
-        IdNode dummyHead = new IdNode(-1, head);
-        dummyHead.next = head.next;
+        int removedId = head.id;
+        head = head.next;
         size--;
-        return head.id;
+        return removedId;
     }
 
     public void addId(int userId) {
         IdNode newUser = new IdNode(userId);
         if(head == null) {
             head = newUser;
-            size++;
-            return;
+        } else {
+            tail.next = newUser;
         }
-        IdNode cur = head;
-        while(cur.next != null) {
-            cur = cur.next;
-        }
-        cur.next = newUser;
+        tail = newUser; // Update the tail pointer
         size++;
     }
-
     public boolean isEmpty() {
-        if(size == 0) {
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 }

@@ -1,21 +1,13 @@
 public class ListNode {
-    private User user;
+    private final User user;
     private ListNode next;
 
-    public ListNode(User user) {
-        this.user = user;
-        this.next = null;
-    }
     public ListNode(User user, ListNode next) {
         this.user = user;
         this.next = next;
     }
-
     public User getUser() {
         return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
     }
     public ListNode getNext() {
         return next;

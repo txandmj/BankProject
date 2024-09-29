@@ -15,32 +15,17 @@ public class User {
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getSocialSecurityNum() {
         return SSN;
-    }
-
-    public void setSocialSecurityNum(String socialSecurityNum) {
-        this.SSN = socialSecurityNum;
     }
 
     public double getBalance() {
@@ -53,20 +38,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", SSN=" + SSN +
-                ", amount=" + balance +
-                '}';
+        return STR."Users{id=\{id}, name='\{name}\{'\''}, address='\{address}\{'\''}, SSN=\{SSN}, amount=\{balance}\{'}'}";
     }
     public boolean equals(User other) {
-        if(name.equals(other.name) && address.equals(other.address)
-                && SSN.equals(other.SSN) && balance == other.balance) {
-            return true;
-        }
-        return false;
+        return name.equals(other.name) && address.equals(other.address)
+                && SSN.equals(other.SSN) && balance == other.balance;
     }
 }
 

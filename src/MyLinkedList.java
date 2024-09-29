@@ -17,38 +17,27 @@ public class MyLinkedList {
         }
         return null;
     }
-    public int getInsertSite(int userId) {
-        ListNode cur = head;
-        int insertSite = 0;
-        if(head == null) {
-            return insertSite;
-        }
-        while(cur != null && cur.getUser().getId() < userId) {
-            cur = cur.getNext();
-            insertSite++;
-        }
-        return insertSite;
-    }
 
-    public void addAtIndex(User user, int index) {
-        //this linkedlist is empty
-        if(head == null) {
-            head = new ListNode(user);
-            size++;
-            return;
+    public void addNode(User user)
+    {
+        ListNode prevNode = null;
+        ListNode curNode = head;
+        while(curNode != null && curNode.getUser().getId() < user.getId()) {
+            prevNode = curNode;
+            curNode = curNode.getNext();
         }
-        ListNode dummyHead = new ListNode(new User(), head);
-        ListNode newUser = new ListNode(user);
-        ListNode cur = dummyHead;
-        for(int i = 0; i < index; i++) {
-            cur = cur.getNext();
+        if(prevNode == null) {// user ID is the smallest
+            head = new ListNode(user, head);
         }
-        newUser.setNext(cur.getNext());
-        cur.setNext(newUser);
+        else {
+            ListNode tmp = prevNode.getNext();
+            ListNode newNode = new ListNode(user, tmp);
+            prevNode.setNext(newNode);
+        }
         size++;
     }
 
-    public boolean deleteId(int userId) {
+    public boolean deleteNode(int userId) {
         ListNode dummyHead = new ListNode(new User(), head);
         ListNode cur = dummyHead;
         while(cur != null && cur.getNext() != null) {
