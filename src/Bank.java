@@ -59,10 +59,14 @@ public class Bank {
     public float getMedianId() {
         float res;
         int listSize = usersList.getSize();
+        if(listSize == 0) {
+            System.out.println("The list is empty!");
+            return -1;
+        }
         int idMid = listSize / 2;
         if(listSize % 2 == 0) {
         float id1 = (float) usersList.get(idMid).getId();
-        float id2 = (float) usersList.get(idMid + 1).getId();
+        float id2 = (float) usersList.get(idMid - 1).getId();
         res = (id1 + id2) / 2;
         //wrong: store the result from int to float type
         //res = (usersList.get(idMid).getId() + usersList.get(idMid + 1).getId()) / 2;

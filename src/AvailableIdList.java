@@ -1,6 +1,6 @@
 /*
-The linked list to store available IDs;
-id added to the tail of avail
+The linked list is to store available IDs;
+id added to the tail of available id list
  */
 public class AvailableIdList {
     IdNode head = null;
