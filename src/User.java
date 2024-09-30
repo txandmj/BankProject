@@ -41,8 +41,15 @@ public class User {
 
     @Override
     public String toString() {
-        return STR."Users{id=\{id}, name='\{name}\{'\''}, address='\{address}\{'\''}, SSN=\{SSN}, amount=\{balance}\{'}'}";
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", SSN='" + SSN + '\'' +
+                ", balance=" + balance +
+                '}';
     }
+
     public boolean equals(User other) {
         return name.equals(other.name) && address.equals(other.address)
                 && SSN.equals(other.SSN) && balance == other.balance;

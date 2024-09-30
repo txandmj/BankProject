@@ -27,7 +27,7 @@ public class Bank {
     public void addNewUserWithId(int id, String name, String address, String ssn, double balance) {
         User newUser = new User(id, name, address, ssn, balance);
         usersList.addNode(newUser);
-        System.out.println(STR."User added: \{newUser}");
+        System.out.println("User added: " + newUser);
     }
 
     public void deleteUser(int userId) {
@@ -39,9 +39,9 @@ public class Bank {
         if(usersList.deleteNode(userId)) {
             availableIdList.addId(userId); //add id into availableIdList
             //System.out.println("User " + userId + " deleted");
-            System.out.println(STR."\{deleteUser} deleted");
+            System.out.println(deleteUser + " deleted");
         } else {
-            System.out.println(STR."User \{userId} not found");
+            System.out.println("User" + userId + " not found");
         }
 
     }
@@ -51,7 +51,7 @@ public class Bank {
         if(payer != null && payee != null && payer.getBalance() >= amount) {
             payer.setBalance(payer.getBalance() - amount);
             payee.setBalance(payee.getBalance() + amount);
-            System.out.println(STR."Transfer successful: \{amount} from \{payerId} to \{payeeId}");
+            System.out.println("Transfer successful: " + amount + " from " + payerId + " to " + payeeId);
         } else {
             System.out.println("Transfer failed: Insufficient funds or user not fund");
         }
@@ -88,7 +88,7 @@ public class Bank {
                 user2.setBalance(total);
                 deleteUser(id1);
             }
-            System.out.println(STR."Account \{id1} and \{id2} merged into \{id1}. The balance is \{total}");
+            System.out.println("Account " + id1 + " and " + id2 + " merged into " + id1 + ". The balance is" + total);
             return;
         }
         System.out.println("Cannot merge accounts: Invalid details or mismatch.");

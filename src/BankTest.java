@@ -10,7 +10,7 @@ public class BankTest {
         orangeBank.addNewUser("Garvin", "999 Star St", "999-66-9999", 2000);
 
         int size = orangeBank.getUsersList().getSize();
-        System.out.println(STR."\{size} clients are in \{orangeBank.bankName}");
+        System.out.println(size + " clients are in " + orangeBank.bankName);
         // Task 3: Delete a user
         //orangeBank.deleteUser(0);
 
@@ -18,7 +18,7 @@ public class BankTest {
         orangeBank.payUserToUser(5, 1, 300);
         orangeBank.payUserToUser(2, 1, 300);
         // Task 5: Get median ID
-        System.out.println(STR."Median ID: \{orangeBank.getMedianId()}");
+        System.out.println("Median ID: " + orangeBank.getMedianId());
         // Task 6: Merge accounts
         orangeBank.addNewUser("Alice", "123 Main St", "111-11-1111", 1000);
         orangeBank.mergeAccount(0, 6);
