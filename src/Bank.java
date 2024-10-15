@@ -13,12 +13,14 @@ public class Bank {
         usersList = new MyLinkedList();
         availableIdList = new AvailableIdList();
     }
+    // unique ID that is either 1 more than the last unique ID or equal to the first free-up unique ID
     public int getNewId() {
         if(availableIdList.isEmpty()) {
             return idCounter++;
         }
         return availableIdList.removeHead();
     }
+    //Task-2: Write a method/function addUser(user) that adds a new user.
     public void addNewUser(String name, String address, String ssn, double balance) {
         int newId = getNewId();
         addNewUserWithId(newId, name, address, ssn, balance);
@@ -29,7 +31,7 @@ public class Bank {
         usersList.addNode(newUser);
         System.out.println("User added: " + newUser);
     }
-
+//Task-3: Write a method/function deleteUser(ID) that deletes an existing user. Free up the unique ID while deleting the user
     public void deleteUser(int userId) {
         if(userId < 0 || userId > idCounter) {
             System.out.println("Invalid user Id");
@@ -45,6 +47,8 @@ public class Bank {
         }
 
     }
+    //Task-4: Write a method/function payUserToUser(payer ID, payee ID, amount) that lets the user with ID1 pay the user with ID3 by amount.
+    //chatgpt
     public void payUserToUser(int payerId, int payeeId, double amount) {
         User payer = usersList.get(payerId);
         User payee = usersList.get(payeeId);
@@ -56,6 +60,7 @@ public class Bank {
             System.out.println("Transfer failed: Insufficient funds or user not fund");
         }
     }
+    // Task-5: returns the median of all the account IDs
     public float getMedianId() {
         float res;
         int listSize = usersList.getSize();
@@ -75,7 +80,7 @@ public class Bank {
         }
         return res;
     }
-
+    // Task-6: merges two accounts into one.
     public void mergeAccount(int id1, int id2) {
         User user1 = usersList.get(id1);
         User user2 = usersList.get(id2);
@@ -93,16 +98,17 @@ public class Bank {
         }
         System.out.println("Cannot merge accounts: Invalid details or mismatch.");
     }
+    //Task-7: Merge the two linked lists into one
     public void bankMerge(Bank other) {
         ListNode cur = other.usersList.getHead();
         while(cur != null) {
             int id = cur.getUser().getId();
-            User user = usersList.get(id);
+            User user = usersList.get(id);//check whether the id exist in the orange bank
 
-            if(user == null) { //no need new id
+            if(user == null) { //if it is not exist, addNewUserWithId()
                 addNewUserWithId(cur.getUser().getId(),cur.getUser().getName(), cur.getUser().getAddress(),
                         cur.getUser().getSocialSecurityNum(), cur.getUser().getBalance());
-            } else {
+            } else { //need to get the new id
                 addNewUser(cur.getUser().getName(), cur.getUser().getAddress(),
                         cur.getUser().getSocialSecurityNum(), cur.getUser().getBalance());
             }

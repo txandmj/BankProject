@@ -6,7 +6,7 @@ public class AvailableIdList {
     IdNode head = null;
     IdNode tail = null; //point the new userId
     int size = 0;
-
+// the first free-up unique ID assign to the new user
     public int removeHead() {
         int removedId = head.id;
         head = head.next;

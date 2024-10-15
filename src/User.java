@@ -1,5 +1,5 @@
 /*
-
+Define a User class
  */
 public class User {
     private int id;

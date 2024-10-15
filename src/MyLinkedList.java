@@ -4,9 +4,11 @@ this linked list stores User objects, ordered by userId
 public class MyLinkedList {
     private int size = 0;
     private ListNode head = null;
+    // Return the size of the linked list
     public int getSize(){
         return size;
     }
+    // Return the head of the list
     public ListNode getHead() {
         return head;
     }
@@ -21,27 +23,34 @@ public class MyLinkedList {
         }
         return null;// User not found
     }
-
-    public void addNode(User user)
-    {
-        ListNode prevNode = null;
-        ListNode curNode = head;
-        // Traverse until we find the right position for the new node
-        while(curNode != null && curNode.getUser().getId() < user.getId()) {
-            prevNode = curNode;
-            curNode = curNode.getNext();
+    // Add a new node for the user in sorted order
+    public void addNode(User user) {
+        ListNode dummyHead = new ListNode(null, head);
+        ListNode cur = dummyHead;
+        while(cur.next != null && cur.next.getUser().getId() < user.getId()) {
+            cur = cur.getNext();
         }
-        // Insert at the head if it's the smallest or the list is empty
-        if(prevNode == null) {
-            head = new ListNode(user, head);
-        }
-        else {
-            ListNode newNode = new ListNode(user, curNode);
-            prevNode.setNext(newNode);
-        }
+        ListNode newNode = new ListNode(user);
+        newNode.setNext(cur.getNext());
+        cur.setNext(newNode);
+//        ListNode prevNode = null;
+//        ListNode curNode = head;
+//        // Traverse until we find the right position for the new node
+//        while(curNode != null && curNode.getUser().getId() < user.getId()) {
+//            prevNode = curNode;
+//            curNode = curNode.getNext();
+//        }
+//        // Insert at the head if it's the smallest or the list is empty
+//        if(prevNode == null) {
+//            head = new ListNode(user, head);
+//        }
+//        else {
+//            ListNode newNode = new ListNode(user, curNode);
+//            prevNode.setNext(newNode);
+//        }
         size++;
     }
-
+//Delete a user node by userId
     public boolean deleteNode(int userId) {
         //The dummyHead node is helpful for simplifying edge cases (like removing the head node).
         ListNode dummyHead = new ListNode(null, head);

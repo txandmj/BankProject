@@ -1,3 +1,4 @@
+//Define a ListNode class to represent each node in the linked list.
 public class ListNode {
     private final User user;
     private ListNode next;
